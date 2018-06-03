@@ -15,7 +15,7 @@ class Band {
     }
 }
 
-function fetchBand(){
+function fetchRandomBand(){
     return new Promise((resolve, reject) => {
         fetch(`https://em.wemakesites.net/band/random?api_key=${apiKey}`)
             .then(response => {
@@ -165,9 +165,9 @@ buttonAlbum.addEventListener('click', () => {
     let loader = document.querySelector('.loading')
     loader.style.display = 'block';
 
-    let promiseBand1 = fetchBand();
-    let promiseBand2 = fetchBand();
-    let promiseBand3 = fetchBand();
+    let promiseBand1 = fetchRandomBand();
+    let promiseBand2 = fetchRandomBand();
+    let promiseBand3 = fetchRandomBand();
 
     Promise.all([promiseBand1, promiseBand2, promiseBand3]).then(bands => {
         formBands(bands);
