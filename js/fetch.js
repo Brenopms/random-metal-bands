@@ -14,96 +14,37 @@ class Band {
     }
 }
 
-let getBand = new Promise((resolve, reject) => {
-    fetch(`http://em.wemakesites.net/band/random?api_key=${apiKey}`)
-        .then(response => {
-            response.json().then(responseData => {
-                console.log(responseData.data.band_name);
-                let band = new Band(
-                    responseData.data.band_name,
-                    responseData.data.details.location,
-                    responseData.data.details.status,
-                    responseData.data.details["formed in"],
-                    responseData.data.details["years active"],
-                    responseData.data.details.genre,
-                    responseData.data.photo,
-                    responseData.data.logo
-                );
-
-                resolve(band);
-            });
-        })
-        .catch(error => {
-            console.log(error);
-        });  
-});
-
-
-let getBand1 = new Promise((resolve, reject) => {
-    fetch(`http://em.wemakesites.net/band/random?api_key=${apiKey}`)
-        .then(response => {
-            response.json().then(responseData => {
-                console.log(responseData.data.band_name);
-                let band = new Band(
-                    responseData.data.band_name,
-                    responseData.data.details.location,
-                    responseData.data.details.status,
-                    responseData.data.details["formed in"],
-                    responseData.data.details["years active"],
-                    responseData.data.details.genre,
-                    responseData.data.photo,
-                    responseData.data.logo
-                );
-
-                resolve(band);
-            });
-        })
-        .catch(error => {
-            console.log(error);
-        });  
-});
-
-let getBand2 = new Promise((resolve, reject) => {
-    fetch(`http://em.wemakesites.net/band/random?api_key=${apiKey}`)
-        .then(response => {
-            response.json().then(responseData => {
-                console.log(responseData.data.band_name);
-                let band = new Band(
-                    responseData.data.band_name,
-                    responseData.data.details.location,
-                    responseData.data.details.status,
-                    responseData.data.details["formed in"],
-                    responseData.data.details["years active"],
-                    responseData.data.details.genre,
-                    responseData.data.photo,
-                    responseData.data.logo
-                );
-
-                resolve(band);
-            });
-        })
-        .catch(error => {
-            console.log(error);
-        });  
-});
-
-let displayBands = new Promise((resolve, reject) => {
-    let promiseBand1 = getBand;
- 
-    let promiseBand2 = getBand;
- 
-    let promiseBand3 = getBand;
-
-    Promise.all([promiseBand1, promiseBand2, promiseBand3]).then(bands => {
-        
-    })
-})
+function fetchBand(){
+    return new Promise((resolve, reject) => {
+        fetch(`http://em.wemakesites.net/band/random?api_key=${apiKey}`)
+            .then(response => {
+                response.json().then(responseData => {
+                    console.log(responseData.data.band_name);
+                    let band = new Band(
+                        responseData.data.band_name,
+                        responseData.data.details.location,
+                        responseData.data.details.status,
+                        responseData.data.details["formed in"],
+                        responseData.data.details["years active"],
+                        responseData.data.details.genre,
+                        responseData.data.photo,
+                        responseData.data.logo
+                    );
+    
+                    resolve(band);
+                });
+            })
+            .catch(error => {
+                console.log(error);
+            });  
+    });
+}
 
 buttonAlbum.addEventListener('click', () => {
     let albumPlace = document.querySelector('.album');
-    let promiseBand1 = getBand;
-    let promiseBand2 = getBand1;
-    let promiseBand3 = getBand2;
+    let promiseBand1 = fetchBand();
+    let promiseBand2 = fetchBand();
+    let promiseBand3 = fetchBand();
     
     Promise.all([promiseBand1, promiseBand2, promiseBand3]).then(bands => {
         albumPlace.innerHTML += `<div class="columns">
