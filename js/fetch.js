@@ -1,7 +1,7 @@
 let apiKey = config.API_KEY;
 
 class Band {
-    constructor(id,name, location, status, formed, years, genre, lyrical, photo, logo){
+    constructor(id,name, location, status = 'N/A', formed = 'N/A', years = 'N/A', genre, lyrical = 'N/A' , photo = 'N/A', logo = 'N/A'){
         this.id = id
         this.name = name;
         this.location = location;
@@ -174,4 +174,44 @@ buttonAlbum.addEventListener('click', () => {
         loader.style.display = 'none';
     });
 
+});
+
+function fetchBandByCountry(countryCode){
+    return new Promise((resolve, reject) => {
+        fetch(`http://em.wemakesites.net/country/:${countryCode}?api_key=${apiKey}`)
+            .then(response => {
+                response.json().then(responseData => {
+                    for(let i=0; i<100; i++){
+                        bands[i] = new Band(
+                            responseData.data.search_results[i].id,
+                            responseData.data.search_results[i].band_name,
+                            responseData.data.search_results[i].location,
+                            genres = responseData.data.search_results[i].genres[0]  
+                        )
+                    }
+                    resolve(bands);
+                });
+            })
+            .catch(error => {
+                console.log(error);
+            });  
+    });
+}
+
+function formBandsCountry(){
+
+}
+
+let selectCountry = document.querySelector('.select-country');
+let getBandCountry = document.querySelector('.get-band-country');
+
+getBandCountry.addEventListener('click', () => {
+    let loader = document.querySelector('.loading')
+    loader.style.display = 'block';
+
+    let countryCode = selectCountry.value;
+    fetchBandByCountry(countryCode).then((bands)=> {
+        formBandsCountry(bands);
+        loader.style.display = 'none';
+    })
 });
