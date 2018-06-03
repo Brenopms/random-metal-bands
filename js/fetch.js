@@ -2,13 +2,14 @@ let buttonAlbum = document.querySelector('.get-album');
 let apiKey = config.API_KEY;
 
 class Band {
-    constructor(name, location, status, formed, years, genre, photo, logo){
+    constructor(name, location, status, formed, years, genre, lyrical, photo, logo){
         this.name = name;
         this.location = location;
         this.status = status;
         this.formed = formed;
         this.years = years;
         this.genre = genre;
+        this.lyrical = lyrical
         this.photoURL = photo;
         this.logoURL = logo;
     }
@@ -20,6 +21,13 @@ function fetchBand(){
             .then(response => {
                 response.json().then(responseData => {
                     console.log(responseData.data.band_name);
+                    if(responseData.data.photo === undefined){
+                        responseData.data.photo = 'http://hdimages.org/wp-content/uploads/2017/03/placeholder-image4.jpg'
+                    }
+                    if(responseData.data.logo === undefined){
+                        responseData.data.logo = 'http://hdimages.org/wp-content/uploads/2017/03/placeholder-image4.jpg'
+                    }
+
                     let band = new Band(
                         responseData.data.band_name,
                         responseData.data.details.location,
@@ -27,6 +35,7 @@ function fetchBand(){
                         responseData.data.details["formed in"],
                         responseData.data.details["years active"],
                         responseData.data.details.genre,
+                        responseData.data.details["lyrical themes"],
                         responseData.data.photo,
                         responseData.data.logo
                     );
@@ -73,6 +82,7 @@ buttonAlbum.addEventListener('click', () => {
                         <p>Formed In: ${bands[0].formed}</p>
                         <p>Years Active: ${bands[0].years}</p>
                         <p>Genre: ${bands[0].genre}</p>
+                        <p>Lyrical Themes: ${bands[0].lyrical}</p>
                     </div>
     
                 </div>
@@ -103,6 +113,7 @@ buttonAlbum.addEventListener('click', () => {
                         <p>Formed In: ${bands[1].formed}</p>
                         <p>Years Active: ${bands[1].years}</p>
                         <p>Genre: ${bands[1].genre}</p>
+                        <p>Lyrical Themes: ${bands[1].lyrical}</p>
                     </div>
     
                 </div>
@@ -133,6 +144,7 @@ buttonAlbum.addEventListener('click', () => {
                         <p>Formed In: ${bands[2].formed}</p>
                         <p>Years Active: ${bands[2].years}</p>
                         <p>Genre: ${bands[2].genre}</p>
+                        <p>Lyrical Themes: ${bands[2].lyrical}</p>
                     </div>
     
                 </div>
