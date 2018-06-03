@@ -28,6 +28,10 @@ function fetchBand(){
                         responseData.data.logo = 'http://hdimages.org/wp-content/uploads/2017/03/placeholder-image4.jpg'
                     }
 
+                    if(responseData.data.band_name == undefined) {
+                        return 0;
+                    }
+                    
                     let band = new Band(
                         responseData.data.band_name,
                         responseData.data.details.location,
