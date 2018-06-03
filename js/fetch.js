@@ -16,7 +16,7 @@ class Band {
 
 function fetchBand(){
     return new Promise((resolve, reject) => {
-        fetch(`http://em.wemakesites.net/band/random?api_key=${apiKey}`)
+        fetch(`https://em.wemakesites.net/band/random?api_key=${apiKey}`)
             .then(response => {
                 response.json().then(responseData => {
                     console.log(responseData.data.band_name);
@@ -52,113 +52,118 @@ function fetchBand(){
     });
 }
 
+function formBands(bands) {
+    let albumPlace = document.querySelector('.album');
+    albumPlace.innerHTML += `<div class="columns">
+    <div class="column">
+        <div class="card">
+            <div class="card-image">
+                <figure class="image">
+                    <img src="${bands[0].logoURL}" alt="bands logo">
+                </figure>
+            </div>
+            <div class="card-content">
+                <div class="media">
+                    <div class="media-left">
+                        <figure class="image is-64x64">
+                            <img src="${bands[0].photoURL}" alt="bands photo">
+                        </figure>
+                    </div>
+                    <div class="media-content">
+                        <p class="title is-2">${bands[0].name}</p>
+                    </div>
+                </div>
+
+                <div class="">
+                    <p id="location">Band Location: ${bands[0].location}</p>
+                    <p>Status: ${bands[0].status}</p>
+                    <p>Formed In: ${bands[0].formed}</p>
+                    <p>Years Active: ${bands[0].years}</p>
+                    <p>Genre: ${bands[0].genre}</p>
+                    <p>Lyrical Themes: ${bands[0].lyrical}</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="column">
+        <div class="card">
+            <div class="card-image">
+                <figure class="image">
+                    <img src="${bands[1].logoURL}" alt="bands logo">
+                </figure>
+            </div>
+            <div class="card-content">
+                <div class="media">
+                    <div class="media-left">
+                        <figure class="image is-64x64">
+                            <img src="${bands[1].photoURL}" alt="bands photo">
+                        </figure>
+                    </div>
+                    <div class="media-content">
+                        <p class="title is-2">${bands[1].name}</p>
+                    </div>
+                </div>
+
+                <div class="">
+                    <p id="location">bands Location: ${bands[1].location}</p>
+                    <p>Status: ${bands[1].status}</p>
+                    <p>Formed In: ${bands[1].formed}</p>
+                    <p>Years Active: ${bands[1].years}</p>
+                    <p>Genre: ${bands[1].genre}</p>
+                    <p>Lyrical Themes: ${bands[1].lyrical}</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="column">
+        <div class="card">
+            <div class="card-image">
+                <figure class="image">
+                    <img src="${bands[2].logoURL}" alt="bands logo">
+                </figure>
+            </div>
+            <div class="card-content">
+                <div class="media">
+                    <div class="media-left">
+                        <figure class="image is-64x64">
+                            <img src="${bands[2].photoURL}" alt="bands photo">
+                        </figure>
+                    </div>
+                    <div class="media-content">
+                        <p class="title is-2">${bands[2].name}</p>
+                    </div>
+                </div>
+
+                <div class="">
+                    <p id="location">bands Location: ${bands[2].location}</p>
+                    <p>Status: ${bands[2].status}</p>
+                    <p>Formed In: ${bands[2].formed}</p>
+                    <p>Years Active: ${bands[2].years}</p>
+                    <p>Genre: ${bands[2].genre}</p>
+                    <p>Lyrical Themes: ${bands[2].lyrical}</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>`
+}
+
 let buttonAlbum = document.querySelector('.get-album');
+
 buttonAlbum.addEventListener('click', () => {
     let loader = document.querySelector('.loading')
-    let albumPlace = document.querySelector('.album');
-
     loader.style.display = 'block';
 
     let promiseBand1 = fetchBand();
     let promiseBand2 = fetchBand();
     let promiseBand3 = fetchBand();
+
     Promise.all([promiseBand1, promiseBand2, promiseBand3]).then(bands => {
+        formBands(bands);
         loader.style.display = 'none';
-        albumPlace.innerHTML += `<div class="columns">
-        <div class="column">
-            <div class="card">
-                <div class="card-image">
-                    <figure class="image">
-                        <img src="${bands[0].logoURL}" alt="bands logo">
-                    </figure>
-                </div>
-                <div class="card-content">
-                    <div class="media">
-                        <div class="media-left">
-                            <figure class="image is-64x64">
-                                <img src="${bands[0].photoURL}" alt="bands photo">
-                            </figure>
-                        </div>
-                        <div class="media-content">
-                            <p class="title is-2">${bands[0].name}</p>
-                        </div>
-                    </div>
-    
-                    <div class="">
-                        <p id="location">Band Location: ${bands[0].location}</p>
-                        <p>Status: ${bands[0].status}</p>
-                        <p>Formed In: ${bands[0].formed}</p>
-                        <p>Years Active: ${bands[0].years}</p>
-                        <p>Genre: ${bands[0].genre}</p>
-                        <p>Lyrical Themes: ${bands[0].lyrical}</p>
-                    </div>
-    
-                </div>
-            </div>
-        </div>
-        <div class="column">
-            <div class="card">
-                <div class="card-image">
-                    <figure class="image">
-                        <img src="${bands[1].logoURL}" alt="bands logo">
-                    </figure>
-                </div>
-                <div class="card-content">
-                    <div class="media">
-                        <div class="media-left">
-                            <figure class="image is-64x64">
-                                <img src="${bands[1].photoURL}" alt="bands photo">
-                            </figure>
-                        </div>
-                        <div class="media-content">
-                            <p class="title is-2">${bands[1].name}</p>
-                        </div>
-                    </div>
-    
-                    <div class="">
-                        <p id="location">bands Location: ${bands[1].location}</p>
-                        <p>Status: ${bands[1].status}</p>
-                        <p>Formed In: ${bands[1].formed}</p>
-                        <p>Years Active: ${bands[1].years}</p>
-                        <p>Genre: ${bands[1].genre}</p>
-                        <p>Lyrical Themes: ${bands[1].lyrical}</p>
-                    </div>
-    
-                </div>
-            </div>
-        </div>
-        <div class="column">
-            <div class="card">
-                <div class="card-image">
-                    <figure class="image">
-                        <img src="${bands[2].logoURL}" alt="bands logo">
-                    </figure>
-                </div>
-                <div class="card-content">
-                    <div class="media">
-                        <div class="media-left">
-                            <figure class="image is-64x64">
-                                <img src="${bands[2].photoURL}" alt="bands photo">
-                            </figure>
-                        </div>
-                        <div class="media-content">
-                            <p class="title is-2">${bands[2].name}</p>
-                        </div>
-                    </div>
-    
-                    <div class="">
-                        <p id="location">bands Location: ${bands[2].location}</p>
-                        <p>Status: ${bands[2].status}</p>
-                        <p>Formed In: ${bands[2].formed}</p>
-                        <p>Years Active: ${bands[2].years}</p>
-                        <p>Genre: ${bands[2].genre}</p>
-                        <p>Lyrical Themes: ${bands[2].lyrical}</p>
-                    </div>
-    
-                </div>
-            </div>
-        </div>
-    </div>`
     });
 
 });
