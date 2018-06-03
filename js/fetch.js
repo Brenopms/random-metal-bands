@@ -1,4 +1,3 @@
-let buttonAlbum = document.querySelector('.get-album');
 let apiKey = config.API_KEY;
 
 class Band {
@@ -22,16 +21,16 @@ function fetchBand(){
                 response.json().then(responseData => {
                     console.log(responseData.data.band_name);
                     if(responseData.data.photo === undefined){
-                        responseData.data.photo = 'http://hdimages.org/wp-content/uploads/2017/03/placeholder-image4.jpg'
+                        responseData.data.photo = 'http://www.searshometownstores.com/c.3721178/hometown/img/no_image_available.jpeg?hei=50&wid=100&sharpen=1'
                     }
                     if(responseData.data.logo === undefined){
-                        responseData.data.logo = 'http://hdimages.org/wp-content/uploads/2017/03/placeholder-image4.jpg'
+                        responseData.data.logo = 'http://www.searshometownstores.com/c.3721178/hometown/img/no_image_available.jpeg?hei=50&wid=100&sharpen=1'
                     }
 
                     if(responseData.data.band_name == undefined) {
                         return 0;
                     }
-                    
+
                     let band = new Band(
                         responseData.data.band_name,
                         responseData.data.details.location,
@@ -53,12 +52,12 @@ function fetchBand(){
     });
 }
 
+let buttonAlbum = document.querySelector('.get-album');
 buttonAlbum.addEventListener('click', () => {
     let albumPlace = document.querySelector('.album');
     let promiseBand1 = fetchBand();
     let promiseBand2 = fetchBand();
     let promiseBand3 = fetchBand();
-    
     Promise.all([promiseBand1, promiseBand2, promiseBand3]).then(bands => {
         albumPlace.innerHTML += `<div class="columns">
         <div class="column">

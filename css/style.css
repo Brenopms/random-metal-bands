@@ -2,6 +2,7 @@
     height: 100%;
 }
 
+
 @media(max-width: 720px) {
     .button.is-dark {
         margin-top: 20px;
