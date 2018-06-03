@@ -54,7 +54,7 @@ function fetchBand(){
 
 let buttonAlbum = document.querySelector('.get-album');
 buttonAlbum.addEventListener('click', () => {
-    let loader = document.querySelector('.loader')
+    let loader = document.querySelector('.loading')
     let albumPlace = document.querySelector('.album');
 
     loader.style.display = 'block';
