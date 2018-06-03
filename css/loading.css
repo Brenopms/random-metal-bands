@@ -35,7 +35,7 @@
     50% {
       -webkit-transform: rotate(180deg);
               transform: rotate(180deg);
-      border-top-color: #640000;
+      border-top-color: red;
     }
     100% {
       -webkit-transform: rotate(360deg);
@@ -52,7 +52,7 @@
     50% {
       -webkit-transform: rotate(180deg);
               transform: rotate(180deg);
-      border-top-color: #640000;
+      border-top-color: red;
     }
     100% {
       -webkit-transform: rotate(360deg);
@@ -64,55 +64,16 @@
     box-sizing: border-box;
   }
   
-
   .loader {
     position: relative;
     margin: 75px auto;
     width: 150px;
     height: 150px;
-    display: block;
+    display: none;
     overflow: hidden;
   }
   .loader div {
     height: 100%;
-  }
-  
-  /* loader 1 */
-  .loader1, .loader1 div {
-    border-radius: 50%;
-    padding: 8px;
-    border: 2px solid transparent;
-    -webkit-animation: rotate linear 3.5s infinite;
-            animation: rotate linear 3.5s infinite;
-    border-top-color: black;
-    border-bottom-color: #640000;
-  }
-  
-  /*loader 2  */
-  .loader2, .loader2 div {
-    border-radius: 50%;
-    padding: 8px;
-    border: 2px solid transparent;
-    -webkit-animation: rotate linear 3.5s infinite;
-            animation: rotate linear 3.5s infinite;
-    border-top-color: #640000;
-    border-left-color: black;
-    border-right-color: black;
-  }
-  
-  /*loader 3  */
-  .loader3, .loader3 div {
-    border-radius: 50%;
-    padding: 8px;
-    border: 2px solid transparent;
-    -webkit-animation: rotate linear 3.5s infinite;
-            animation: rotate linear 3.5s infinite;
-    border-top-color: black;
-    border-left-color: #640000;
-    -webkit-animation-timing-function: cubic-bezier(0.55, 0.38, 0.21, 0.88);
-            animation-timing-function: cubic-bezier(0.55, 0.38, 0.21, 0.88);
-    -webkit-animation-duration: 3s;
-            animation-duration: 3s;
   }
   
   /* loader 4 */

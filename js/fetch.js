@@ -54,11 +54,16 @@ function fetchBand(){
 
 let buttonAlbum = document.querySelector('.get-album');
 buttonAlbum.addEventListener('click', () => {
+    let loader = document.querySelector('.loader')
     let albumPlace = document.querySelector('.album');
+
+    loader.style.display = 'block';
+
     let promiseBand1 = fetchBand();
     let promiseBand2 = fetchBand();
     let promiseBand3 = fetchBand();
     Promise.all([promiseBand1, promiseBand2, promiseBand3]).then(bands => {
+        loader.style.display = 'none';
         albumPlace.innerHTML += `<div class="columns">
         <div class="column">
             <div class="card">
