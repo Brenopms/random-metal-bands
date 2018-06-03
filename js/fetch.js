@@ -1,7 +1,8 @@
 let apiKey = config.API_KEY;
 
 class Band {
-    constructor(name, location, status, formed, years, genre, lyrical, photo, logo){
+    constructor(id,name, location, status, formed, years, genre, lyrical, photo, logo){
+        this.id = id
         this.name = name;
         this.location = location;
         this.status = status;
@@ -32,6 +33,7 @@ function fetchBand(){
                     }
 
                     let band = new Band(
+                        responseData.data.id,
                         responseData.data.band_name,
                         responseData.data.details.location,
                         responseData.data.details.status,
@@ -70,7 +72,9 @@ function formBands(bands) {
                         </figure>
                     </div>
                     <div class="media-content">
-                        <p class="title is-2">${bands[0].name}</p>
+                        <p class="title is-2">
+                            <a href="https://www.metal-archives.com/band/view/id/${bands[0].id}" target="_blank" rel="noopener noreferrer">${bands[0].name}</a>
+                        </p>
                     </div>
                 </div>
 
@@ -101,7 +105,9 @@ function formBands(bands) {
                         </figure>
                     </div>
                     <div class="media-content">
-                        <p class="title is-2">${bands[1].name}</p>
+                        <p class="title is-2">
+                            <a href="https://www.metal-archives.com/band/view/id/${bands[1].id}" target="_blank" rel="noopener noreferrer">${bands[1].name}</a>
+                        </p>
                     </div>
                 </div>
 
@@ -132,7 +138,9 @@ function formBands(bands) {
                         </figure>
                     </div>
                     <div class="media-content">
-                        <p class="title is-2">${bands[2].name}</p>
+                        <p class="title is-2">
+                            <a href="https://www.metal-archives.com/band/view/id/${bands[2].id}" target="_blank" rel="noopener noreferrer">${bands[2].name}</a>
+                        </p>
                     </div>
                 </div>
 
