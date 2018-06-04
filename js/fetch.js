@@ -159,35 +159,42 @@ function formBands(bands) {
 </div>`
 }
 
-let buttonAlbum = document.querySelector('.get-album');
+// let buttonAlbum = document.querySelector('.get-band-country');
 
-buttonAlbum.addEventListener('click', () => {
-    let loader = document.querySelector('.loading')
-    loader.style.display = 'block';
+// buttonAlbum.addEventListener('click', () => {
+//     let loader = document.querySelector('.loading')
+//     loader.style.display = 'block';
 
-    let promiseBand1 = fetchRandomBand();
-    let promiseBand2 = fetchRandomBand();
-    let promiseBand3 = fetchRandomBand();
+//     let promiseBand1 = fetchRandomBand();
+//     let promiseBand2 = fetchRandomBand();
+//     let promiseBand3 = fetchRandomBand();
 
-    Promise.all([promiseBand1, promiseBand2, promiseBand3]).then(bands => {
-        formBands(bands);
-        loader.style.display = 'none';
-    });
+//     Promise.all([promiseBand1, promiseBand2, promiseBand3]).then(bands => {
+//         formBands(bands);
+//         loader.style.display = 'none';
+//     });
 
-});
+// });
 
 function fetchBandByCountry(countryCode){
     return new Promise((resolve, reject) => {
-        fetch(`http://em.wemakesites.net/country/:${countryCode}?api_key=${apiKey}`)
+        fetch(`http://em.wemakesites.net/country/${countryCode}?api_key=${apiKey}`)
             .then(response => {
                 response.json().then(responseData => {
-                    for(let i=0; i<100; i++){
-                        bands[i] = new Band(
-                            responseData.data.search_results[i].id,
-                            responseData.data.search_results[i].band_name,
-                            responseData.data.search_results[i].location,
-                            genres = responseData.data.search_results[i].genres[0]  
-                        )
+                    let bands = [];
+                    console.log(responseData.data.search_results);
+                    for(let i=0; i<responseData.data.search_results.length; i++){
+                        if(responseData.data.search_results[i] !== undefined){
+                            bands[i] = new Band(
+                                responseData.data.search_results[i].id,
+                                responseData.data.search_results[i].name,
+                                responseData.data.search_results[i].location,
+                                'N/A',
+                                'N/A',
+                                'N/A',
+                                responseData.data.search_results[i].genres[0]  
+                            )
+                        }
                     }
                     resolve(bands);
                 });
@@ -198,8 +205,66 @@ function fetchBandByCountry(countryCode){
     });
 }
 
-function formBandsCountry(){
-
+function formBandsCountry(bands){
+    let albumPlace = document.querySelector('.album');
+    for(let i=0; i<(bands.length-2); i+=3){
+        albumPlace.innerHTML += `<div class="columns">
+        <div class="column">
+            <div class="card">
+                <div class="card-content">
+                    <div class="media">
+                        <div class="media-content">
+                            <p class="title is-2">
+                                <a href="https://www.metal-archives.com/band/view/id/${bands[i].id}" target="_blank" rel="noopener noreferrer">${bands[i].name}</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="">
+                        <p id="location">Band Location: ${bands[i].location}</p>
+                        <p>Genre: ${bands[i].genre}</p>
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="card">
+                <div class="card-content">
+                    <div class="media">
+                        <div class="media-content">
+                            <p class="title is-2">
+                                <a href="https://www.metal-archives.com/band/view/id/${bands[i+1].id}" target="_blank" rel="noopener noreferrer">${bands[i+1].name}</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="">
+                        <p id="location">Band Location: ${bands[i+1].location}</p>
+                        <p>Genre: ${bands[i+1].genre}</p>
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="card">
+                <div class="card-content">
+                    <div class="media">
+                        <div class="media-content">
+                            <p class="title is-2">
+                                <a href="https://www.metal-archives.com/band/view/id/${bands[i+2].id}" target="_blank" rel="noopener noreferrer">${bands[i+2].name}</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="">
+                        <p id="location">Band Location: ${bands[i+2].location}</p>
+                        <p>Genre: ${bands[i+2].genre}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>`
+    }
+    console.log('hey');
 }
 
 let selectCountry = document.querySelector('.select-country');
