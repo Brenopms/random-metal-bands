@@ -1,5 +1,4 @@
-let apiKey = config.API_KEY;
-
+const apiKey = config.API_KEY;
 class Band {
     constructor(id,name, location, status = 'N/A', formed = 'N/A', years = 'N/A', genre, lyrical = 'N/A' , photo = 'N/A', logo = 'N/A'){
         this.id = id
@@ -22,17 +21,17 @@ function fetchRandomBand(){
                 response.json().then(responseData => {
                     console.log(responseData.data.band_name);
                     if(responseData.data.photo === undefined){
-                        responseData.data.photo = 'http://www.searshometownstores.com/c.3721178/hometown/img/no_image_available.jpeg?hei=50&wid=100&sharpen=1'
+                        responseData.data.photo = 'http://www.searshometownstores.com/c.3721178/hometown/img/no_image_available.jpeg?hei=50&wid=100&sharpen=1';
                     }
                     if(responseData.data.logo === undefined){
-                        responseData.data.logo = 'http://www.searshometownstores.com/c.3721178/hometown/img/no_image_available.jpeg?hei=50&wid=100&sharpen=1'
+                        responseData.data.logo = 'http://www.searshometownstores.com/c.3721178/hometown/img/no_image_available.jpeg?hei=50&wid=100&sharpen=1';
                     }
 
                     if(responseData.data.band_name == undefined) {
                         return 0;
                     }
 
-                    let band = new Band(
+                    const band = new Band(
                         responseData.data.id,
                         responseData.data.band_name,
                         responseData.data.details.location,
@@ -55,7 +54,7 @@ function fetchRandomBand(){
 }
 
 function formBands(bands) {
-    let albumPlace = document.querySelector('.album');
+    const albumPlace = document.querySelector('.album');
     albumPlace.innerHTML += `<div class="columns">
     <div class="column">
         <div class="card">
@@ -159,15 +158,15 @@ function formBands(bands) {
 </div>`
 }
 
-let buttonAlbum = document.querySelector('.get-random-band');
+const buttonAlbum = document.querySelector('.get-random-band');
 if(buttonAlbum !== null){
     buttonAlbum.addEventListener('click', () => {
-        let loader = document.querySelector('.loading')
+        const loader = document.querySelector('.loading')
         loader.style.display = 'block';
     
-        let promiseBand1 = fetchRandomBand();
-        let promiseBand2 = fetchRandomBand();
-        let promiseBand3 = fetchRandomBand();
+        const promiseBand1 = fetchRandomBand();
+        const promiseBand2 = fetchRandomBand();
+        const promiseBand3 = fetchRandomBand();
     
         Promise.all([promiseBand1, promiseBand2, promiseBand3]).then(bands => {
             formBands(bands);
@@ -182,7 +181,7 @@ function fetchBandByCountry(countryCode){
         fetch(`http://em.wemakesites.net/country/${countryCode}?api_key=${apiKey}`)
             .then(response => {
                 response.json().then(responseData => {
-                    let bands = [];
+                    const bands = [];
                     console.log(responseData.data.search_results);
                     for(let i=0; i<responseData.data.search_results.length; i++){
                         if(responseData.data.search_results[i] !== undefined){
@@ -207,15 +206,18 @@ function fetchBandByCountry(countryCode){
 }
 
 function formBandsCountry(bands){
-    let albumPlace = document.querySelector('.album');
-    for(let i=0; i<(bands.length-2); i+=3){
+    const albumPlace = document.querySelector('.album');
+    if (bands.length < 2){
+        albumPlace.innerHTML += ` <div class="content"><p class="title is-3"> This Country doesn't have any metal band :(</p></div> `
+    }
+    for(let i=0; i+2<bands.length; i+=3){
         albumPlace.innerHTML += `<div class="columns">
         <div class="column">
             <div class="card">
                 <div class="card-content">
                     <div class="media">
                         <div class="media-content">
-                            <p class="title is-2">
+                            <p class="title is-3">
                                 <a href="https://www.metal-archives.com/band/view/id/${bands[i].id}" target="_blank" rel="noopener noreferrer">${bands[i].name}</a>
                             </p>
                         </div>
@@ -233,7 +235,7 @@ function formBandsCountry(bands){
                 <div class="card-content">
                     <div class="media">
                         <div class="media-content">
-                            <p class="title is-2">
+                            <p class="title is-3">
                                 <a href="https://www.metal-archives.com/band/view/id/${bands[i+1].id}" target="_blank" rel="noopener noreferrer">${bands[i+1].name}</a>
                             </p>
                         </div>
@@ -251,7 +253,7 @@ function formBandsCountry(bands){
                 <div class="card-content">
                     <div class="media">
                         <div class="media-content">
-                            <p class="title is-2">
+                            <p class="title is-3">
                                 <a href="https://www.metal-archives.com/band/view/id/${bands[i+2].id}" target="_blank" rel="noopener noreferrer">${bands[i+2].name}</a>
                             </p>
                         </div>
@@ -265,13 +267,14 @@ function formBandsCountry(bands){
         </div>
     </div>`
     }
-    console.log('hey');
 }
 
 let selectCountry = document.querySelector('.select-country');
 let getBandCountry = document.querySelector('.get-band-country');
 if(getBandCountry !== null) {
     getBandCountry.addEventListener('click', () => {
+        let albumPlace = document.querySelector('.album');
+        albumPlace.innerHTML = ''; 
         let loader = document.querySelector('.loading')
         loader.style.display = 'block';
     
