@@ -178,7 +178,7 @@ if(buttonAlbum !== null){
 
 function fetchBandByCountry(countryCode){
     return new Promise((resolve, reject) => {
-        fetch(`http://em.wemakesites.net/country/${countryCode}?api_key=${apiKey}`)
+        fetch(`https://em.wemakesites.net/country/${countryCode}?api_key=${apiKey}`)
             .then(response => {
                 response.json().then(responseData => {
                     const bands = [];
