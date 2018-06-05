@@ -159,22 +159,23 @@ function formBands(bands) {
 </div>`
 }
 
-// let buttonAlbum = document.querySelector('.get-band-country');
-
-// buttonAlbum.addEventListener('click', () => {
-//     let loader = document.querySelector('.loading')
-//     loader.style.display = 'block';
-
-//     let promiseBand1 = fetchRandomBand();
-//     let promiseBand2 = fetchRandomBand();
-//     let promiseBand3 = fetchRandomBand();
-
-//     Promise.all([promiseBand1, promiseBand2, promiseBand3]).then(bands => {
-//         formBands(bands);
-//         loader.style.display = 'none';
-//     });
-
-// });
+let buttonAlbum = document.querySelector('.get-random-band');
+if(buttonAlbum !== null){
+    buttonAlbum.addEventListener('click', () => {
+        let loader = document.querySelector('.loading')
+        loader.style.display = 'block';
+    
+        let promiseBand1 = fetchRandomBand();
+        let promiseBand2 = fetchRandomBand();
+        let promiseBand3 = fetchRandomBand();
+    
+        Promise.all([promiseBand1, promiseBand2, promiseBand3]).then(bands => {
+            formBands(bands);
+            loader.style.display = 'none';
+        });
+    
+    });
+}
 
 function fetchBandByCountry(countryCode){
     return new Promise((resolve, reject) => {
@@ -269,14 +270,16 @@ function formBandsCountry(bands){
 
 let selectCountry = document.querySelector('.select-country');
 let getBandCountry = document.querySelector('.get-band-country');
+if(getBandCountry !== null) {
+    getBandCountry.addEventListener('click', () => {
+        let loader = document.querySelector('.loading')
+        loader.style.display = 'block';
+    
+        let countryCode = selectCountry.value;
+        fetchBandByCountry(countryCode).then((bands)=> {
+            formBandsCountry(bands);
+            loader.style.display = 'none';
+        })
+    });
+}
 
-getBandCountry.addEventListener('click', () => {
-    let loader = document.querySelector('.loading')
-    loader.style.display = 'block';
-
-    let countryCode = selectCountry.value;
-    fetchBandByCountry(countryCode).then((bands)=> {
-        formBandsCountry(bands);
-        loader.style.display = 'none';
-    })
-});
