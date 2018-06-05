@@ -147,8 +147,17 @@ h1.title {
     margin-top: 10px;
 }
 
+#select {
+    margin-bottom: 10px;
+}
+
 #select select {
     padding-right: 0;
+}
+
+.get-band-country {
+    display: block;
+    margin-bottom: 20px;
 }
 
 @media(max-width: 720px) {
