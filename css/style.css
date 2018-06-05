@@ -93,7 +93,7 @@
     
     .mobile-btn.active::after {
         margin-top: 0px;
-        /* top: 2px; */
+        top: 2px;
         transform: rotate(45deg);
     }
     
@@ -147,9 +147,21 @@ h1.title {
     margin-top: 10px;
 }
 
+#select select {
+    padding-right: 0;
+}
 
 @media(max-width: 720px) {
+
     .button.is-dark {
         margin-top: 20px;
+    }
+}
+
+
+@media(max-width: 380px) {
+
+    h1.title {
+        margin-top: 4em;
     }
 }
